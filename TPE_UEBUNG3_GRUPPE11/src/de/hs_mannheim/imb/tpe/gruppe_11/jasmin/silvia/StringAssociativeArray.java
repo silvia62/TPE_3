@@ -9,5 +9,5 @@ package de.hs_mannheim.imb.tpe.gruppe_11.jasmin.silvia;
  */
 
 public class StringAssociativeArray<U> extends AssociativeArrayImpl<String, U> {
-
+ // ein Komentar
 }
