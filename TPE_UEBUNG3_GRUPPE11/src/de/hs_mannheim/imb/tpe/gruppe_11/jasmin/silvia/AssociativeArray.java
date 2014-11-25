@@ -6,17 +6,17 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
 /**
- * Definiert generische assoziative Arrays. Die Funktionalität ist analog zu 
+ * Definiert generische assoziative Arrays. Die Funktionalitaet ist analog zu 
  * der bei einem SimpleAssociativeArray. Statt int haben wir nun den Typenparameter T
- * für die Schlüssel und den Typenparameter U für die Werte. 
+ * für die Schluessel und den Typenparameter U für die Werte. 
  * 
- * Da Instanzen von T nicht unbedingt vergleichbar sein müssen, verwendet man anstelle
- * der Objectinstanz ihren Hash-Code. Wir können hier unterstellen, das zwei Instanzen 
+ * Da Instanzen von T nicht unbedingt vergleichbar sein muessen, verwendet man anstelle
+ * der Objectinstanz ihren Hash-Code. Wir koennen hier unterstellen, das zwei Instanzen 
  * derselben Klassenur dann denselben Hash-Code haben, wenn sie logisch dieselbe Instanz
- * sind. Dabei können die Referenzen auf diese Instanzen verschieden sein. Als Beispiel
- * könne Zwichenketten dienen. Zwei verschiedene Zeichenketten s1 und s2, also
- * mit s1 != s2, können dieselben Zeichen in der gleichen Reihenfolge enthalten. Dann 
- * sind sie logisch gleichwertig, und tatsächlich liefert ihre equals-Methode auch 
+ * sind. Dabei koennen die Referenzen auf diese Instanzen verschieden sein. Als Beispiel
+ * koennen Zwichenketten dienen. Zwei verschiedene Zeichenketten s1 und s2, also
+ * mit s1 != s2, koennen dieselben Zeichen in der gleichen Reihenfolge enthalten. Dann 
+ * sind sie logisch gleichwertig, und tatsaechlich liefert ihre equals-Methode auch 
  * den Wert 'true'. Mit equals lassen sich also Original und Kopie einer Zeichenkette
  * nicht unterscheiden, wohl aber mit "==".
  * 
@@ -24,14 +24,14 @@ import java.util.function.BiFunction;
  * Dictionary.
  * 
  * Um von SimpleAssociativeArrayImpl zu AssociativeArrayImpl zu kommen, muss man alse
- * den Typ int für die Schlüssel überall durch den Typenparameter T ersetzen und den
- * Typ String durch den Typenparameter U für die Werte. Außerdem sollte man überall,
+ * den Typ int fuer die Schluessel ueberall durch den Typenparameter T ersetzen und den
+ * Typ String durch den Typenparameter U für die Werte. Außerdem sollte man ueberall,
  * wo keys mit dem Operator "==" auf Gleicheit verglichen werden, diesen durch die
- * equals-Methode, die statt dessen auf Äquivalenz, also logische Gleichwertigkeit, prüft,
+ * equals-Methode, die statt dessen auf Aequivalenz, also logische Gleichwertigkeit, prueft,
  * ersetzen. 
  * 
  *  Dort, wo keys mit "<" oder ">" verglichen werden, muss man nun statt dessen die
- *  Hash-Codes der Schlüssel vergleichen.
+ *  Hash-Codes der Schluessel vergleichen.
  * 
  * @author Silvia Yildiz, Jasmin Cano
  *
