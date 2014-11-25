@@ -45,17 +45,17 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 	 */
 	private boolean containsValue(Node<T, U> node, U value) {
 		if (node == null) {
-			return false; // obviously not found
+			return false; // offensichtlich nicht gefunden
 		}
 		if (node.value.equals(value)) {
-			return true; // found
+			return true; // gefunden
 		}
-		if (containsValue(node.leftChild, value)) { // search in left branch
-			return true; // found in left branch
+		if (containsValue(node.leftChild, value)) { // sucht im linken zweig
+			return true; // gefunden im linken zweig
 		}
-		return containsValue(node.rightChild, value); // search in right branch
-														// - return whatever
-														// result
+		return containsValue(node.rightChild, value); // sucht im rechten zweig 
+														// - gibt irgendwas zurueck
+														// ergebnis
 	}
 
 	/*
@@ -100,12 +100,6 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 	@Override
 	public U get(T key) {
 
-		// Node found;
-		// if (root == null || (found = root.findNode(key)) == null) {
-		// return null;
-		// }
-		// return found.value;
-
 		if (root == null) {
 			return null;
 		}
@@ -145,12 +139,12 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 		// key existiert auch
 		if (root.key.hashCode() == key.hashCode()) { // remove root and arrange
 														// tree
-			U value = root.value; // merken für später
+			U value = root.value; // merken für spaeter
 			if (root.leftChild != null) { // linker Knoten existiert und wird
 											// neue root
 				if (root.rightChild != null) { // wenn der rechte Knoten
 												// existiert, wird er unter dem
-												// linken eingehängt
+												// linken eingehaengt
 					root.leftChild.add(root.rightChild);
 					root = root.leftChild; // linker Knoten wird neue root
 					adjustState(key, true);
@@ -200,15 +194,15 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 		int index;
 
 		Iterator() {
-			keys = new Object[size()]; // make tree large enough to hold all
-										// values to be expected
-			collectFrom(root); // fill the array
+			keys = new Object[size()]; // passt die groesse des Baumes an
+										// values sind zu erwarten
+			collectFrom(root); // fuellt das Array
 			index = 0;
 		}
 
 		/**
-		 * implements an algorithm which collects the values of the field
-		 * retrieved by the function fieldSelector by a depth-first approach
+		 * implementiert einen Algorithmus, der Werte auf dem Feld einsammelt.
+		 * aufgerufen durch die Methode fieldSelector.
 		 * 
 		 * @param node
 		 * @param projection
@@ -218,9 +212,9 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 			if (node == null) {
 				return;
 			}
-			collectFrom(node.leftChild); // collect from left branch
-			keys[index++] = node.key; // collect from this
-			collectFrom(node.rightChild); // collect from right branch
+			collectFrom(node.leftChild); // sammelt vom linken zweig
+			keys[index++] = node.key; 
+			collectFrom(node.rightChild); // sammelt vom rechten zweig
 		}
 
 		boolean hasNext() {
@@ -268,8 +262,8 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 
 	@Override
 	/**
-	 * two arrays are considered equal if they contain the same key-value
-	 * pairs.
+	 * zwei Arrays zaehlen als gleich, wenn Sie die gleichen Schluesselwertpaare 
+	 * beinhalten
 	 * 
 	 * @param object
 	 * @return
@@ -277,17 +271,18 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 	public boolean equals(Object object) {
 
 		if (!(object instanceof AssociativeArrayImpl<?, ?>)) {
-			return false; // wrong type
+			return false; // falscher Typ
 		}
 		@SuppressWarnings("unchecked")
-		// The compiler generates raw types
-		// so it will not be recognized if
-		// object's type parameters are the same as
-		// T and U, respectively ("type erasure").
-		// If the implementation of equals of any type
-		// involved does not return false if the other
-		// object has a different type, then that
-		// implementation of equals is logically incorrect!!
+		// Der Compiler generiert raw type
+		// damit es nicht erkannt wird falls
+		// die Typ-parameter die selben wie T und U sind,
+		// beziehungsweise ("type erasure").
+		// Wenn die Implementierung von equals jeglicher Art beteiligt ist, 
+		// wird nicht false zurueck gegeben. 
+		// wenn das andere Objekt einen anderen Typ hat dann ist die 
+		// Implementierung von equals logisch nicht korrekt.
+		
 		AssociativeArrayImpl<T, U> aa = (AssociativeArrayImpl<T, U>) object;
 		if (size() != aa.size()) {
 			return false;
@@ -299,8 +294,8 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 	}
 
 	/**
-	 * helper method traverses tree checks to see if each key-value pair also
-	 * exists exists in the other array
+	 * Hilfsmethode durchquert die Baumkontrollen um zu sehen ob jedes Schluesselwertpaar
+	 * auch in einem anderen Array existiert
 	 * 
 	 * @param node
 	 * @param otherRoot
@@ -321,21 +316,20 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 	@Override
 	public int hashCode() {
 		return hash;
-		// Calculating the hash code dynamically on each call
-		// is very inefficient. Using adjustState() instead
-		// makes the code slightly more complex in a few places
-		// (put() and remove()), but results in much faster code.
-		// Note that this refactoring lets us still pass all the
-		// unit tests.
-		// return hashCode(root);
+		//Berechnet den Hashcode dynamisch bei jedem Aufruf
+		// ist sehr ineffizient. stattdessen wird adjustState() verwendet
+		// macht den Code an ein paar Stellen leicht komplexer
+		// (put() und remove()), fuehrt zu einem kuerzeren Code.
+		// Diese Umstellung laesst uns dennoch alle unit Tests bestehen.
+		// gibt hashCode(root) zurück;
 	}
 
 	/**
-	 * helper method hash codes of left branch, key, and right branch are simply
-	 * XORed.
+	 * Hilfsmethode: Hashcodes des linken Baumes, Schluessels und 
+	 * rechten Baumes werden einfach XORed
 	 * 
 	 * @param node
-	 * @return 0 if node is null, its hash code otherwise
+	 * @return 0 falls node null ist, ansonsten ist es ein hashcode
 	 */
 	int hashCode(Node<T, U> node) {
 		return (node == null) ? 0 : node.hashCode();

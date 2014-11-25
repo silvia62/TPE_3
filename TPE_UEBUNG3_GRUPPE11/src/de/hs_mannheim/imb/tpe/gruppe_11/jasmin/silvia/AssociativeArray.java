@@ -25,7 +25,7 @@ import java.util.function.BiFunction;
  * 
  * Um von SimpleAssociativeArrayImpl zu AssociativeArrayImpl zu kommen, muss man alse
  * den Typ int fuer die Schluessel ueberall durch den Typenparameter T ersetzen und den
- * Typ String durch den Typenparameter U für die Werte. Außerdem sollte man ueberall,
+ * Typ String durch den Typenparameter U fuer die Werte. Ausserdem sollte man ueberall,
  * wo keys mit dem Operator "==" auf Gleicheit verglichen werden, diesen durch die
  * equals-Methode, die statt dessen auf Aequivalenz, also logische Gleichwertigkeit, prueft,
  * ersetzen. 
