@@ -85,6 +85,33 @@ public class Node<T, U> {
 		return rightChild.remove(key);
 	}
 
+	Boolean containsKey(T key) {
+		return findNode(key) != null;
+	}
 	
+	Node<T, U> findNode(T key) {
+		if (key.hashCode() == this.key.hashCode()){
+			return this;
+		}
+		Node<T, U> child = (key.hashCode() < this.key.hashCode()) ? leftChild : rightChild;
+		
+		if (child == null)
+		{
+			return null;
+		}
+		return child.findNode(key);
+	}
+	
+	@Override
+	/**
+	 * XORs the hash codes of all keys in the subtree
+	 */
+	public int hashCode() {
+		
+		return ((leftChild== null) ? 0 : leftChild.hashCode()) ^
+				key.hashCode() ^
+				((rightChild== null) ? 0 : rightChild.hashCode());
+		
+	}
 	
 }
