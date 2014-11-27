@@ -10,37 +10,41 @@ package de.hs_mannheim.imb.tpe.gruppe_11.jasmin.silvia;
  * 
  * @see de.hs_mannheim.imb.tpe.gruppe_11.jasmin.silvia
  * @author Silvia Yildiz, Jasmin Cano
- *
+ * 
  */
 public class Node<T, U> {
-	
+
 	T key;
 	U value;
 	Node<T, U> leftChild;
 	Node<T, U> rightChild;
-	
+
 	Node(T key, U value) {
-		
+
 		this.key = key;
 		this.value = value;
-		
+
 	}
-	
-	void add(Node<T,U> node) {
-		/* 
+
+	void add(Node<T, U> node) {
+		/*
 		 * Nullwird abgelehnt, könnte auch im übernächsten if abgehandelt werden
 		 */
 		if (node == null) {
 			throw new NullPointerException();
 		}
 		if (this == node) {
-			throw new IllegalArgumentException("Cannot make node child of itself");
+			throw new IllegalArgumentException(
+					"Cannot make node child of itself");
 		}
-		if (key.hashCode() == node.key.hashCode()) { // wenn das legal wäre, also ein update, dann könnten wir auf
+		if (key.hashCode() == node.key.hashCode()) { // wenn das legal wäre,
+														// also ein update, dann
+														// könnten wir auf
 			// update im Interface verzichten
 			throw new IllegalArgumentException("key exists already!");
 		}
-		Node<T, U> child = (key.hashCode() < node.key.hashCode()) ? rightChild : leftChild;
+		Node<T, U> child = (key.hashCode() < node.key.hashCode()) ? rightChild
+				: leftChild;
 		if (child != null) {
 			child.add(node);
 			return;
@@ -51,11 +55,11 @@ public class Node<T, U> {
 		}
 		leftChild = node;
 	}
-	
+
 	U remove(T key) {
-		
-		if (key.hashCode() < this.key.hashCode()){
-			
+
+		if (key.hashCode() < this.key.hashCode()) {
+
 			if (leftChild.key.hashCode() == key.hashCode()) {
 				U value = leftChild.value;
 				if (leftChild.leftChild != null) {
@@ -88,30 +92,41 @@ public class Node<T, U> {
 	Boolean containsKey(T key) {
 		return findNode(key) != null;
 	}
-	
+
 	Node<T, U> findNode(T key) {
-		if (key.hashCode() == this.key.hashCode()){
+		if (key.hashCode() == this.key.hashCode()) {
 			return this;
 		}
-		Node<T, U> child = (key.hashCode() < this.key.hashCode()) ? leftChild : rightChild;
-		
-		if (child == null)
-		{
+		Node<T, U> child = (key.hashCode() < this.key.hashCode()) ? leftChild
+				: rightChild;
+
+		if (child == null) {
 			return null;
 		}
 		return child.findNode(key);
 	}
-	
+
 	@Override
 	/**
 	 * XORs the hash codes of all keys in the subtree
 	 */
 	public int hashCode() {
-		
-		return ((leftChild== null) ? 0 : leftChild.hashCode()) ^
-				key.hashCode() ^
-				((rightChild== null) ? 0 : rightChild.hashCode());
-		
+
+		return ((leftChild == null) ? 0 : leftChild.hashCode())
+				^ key.hashCode()
+				^ ((rightChild == null) ? 0 : rightChild.hashCode());
+
 	}
-	
+
+	@Override
+	public String toString() {
+		String retVal = (leftChild != null) ? String.format("%s, %d = %s",
+				leftChild.toString(), key, value) : String.format("%d = %s",
+				key, value);
+		if (rightChild != null) {
+			retVal = String.format("%s, %s", retVal, rightChild.toString());
+		}
+		return retVal;
+	}
+
 }

@@ -14,9 +14,9 @@ import org.junit.Test;
  * Dictionary ist ein spezielle Fall in dem beide Typen String sind. Der
  * Schluessel ist zu einem Wert uebersetzt / maped.
  * 
- * Notiere, dass toString() immer noch ein Schluesselwertpaar 
- * irgendwie anordnet. Normalerweise ist die Anordnung nicht 
- * einfach zu verstehen weil Sie auf den Hashcode des Schluesselwertes basiert
+ * Notiere, dass toString() immer noch ein Schluesselwertpaar irgendwie
+ * anordnet. Normalerweise ist die Anordnung nicht einfach zu verstehen weil Sie
+ * auf den Hashcode des Schluesselwertes basiert
  * 
  * @author Silvia Yildiz, Jasmin Cano
  * 
@@ -165,72 +165,4 @@ public class DictionaryTests {
 		assertEquals(1, counter.getCount());
 	}
 
-	@Test
-	public void forEachHelpsCreatingEnglishFrenchDictionaryFromEnglishGermanAndGermanFrenchDictionaries() {
-		// arrange
-		String[] englishTerms = {
-			"spoon", "plate", "fork", "knife", "jar", "pot", "table-cloth", "napkin"
-		};
-		String[] germanTerms = {
-			"Löffel", "Teller", "Gabel", "Messer", "Glas", "Topf", "Tischdecke", "Serviette"
-		};
-		for (int i = 0; i < englishTerms.length; ++i)
-		{
-			dictionary.put(englishTerms[i],  germanTerms[i]);
-		}
-		String[] frenchTerms = {
-			"cuillière", "assiette", "fourchette", "couteau", "verre", "pot", "nappe", "serviette"
-		};
-		Dictionary germanFrench = new Dictionary();
-		for (int i = 0; i < germanTerms.length; ++i)
-		{
-			germanFrench.put(germanTerms[i],  frenchTerms[i]);
-		}
-		Dictionary englishFrench = new Dictionary();
-		for (int i = 0; i < englishTerms.length; ++i)
-		{
-			englishFrench.put(englishTerms[i],  frenchTerms[i]);
-		}
-		// act
-		Dictionary result = new Dictionary();
-		dictionary.forEach((String eWord, String gWord) -> 
-			result.put(eWord, germanFrench.get(gWord))
-		);
-		// assert
-		assertTrue(englishFrench.equals(result));
-	}
-
-	@Test
-	public void mapHelpsCreatingEnglishFrenchArrayFromEnglishGermanAndGermanFrenchDictionaries() {
-		// arrange
-		String[] englishTerms = {
-			"spoon", "plate", "fork", "knife", "jar", "pot", "table-cloth", "napkin"
-		};
-		String[] germanTerms = {
-			"Löffel", "Teller", "Gabel", "Messer", "Glas", "Topf", "Tischdecke", "Serviette"
-		};
-		for (int i = 0; i < englishTerms.length; ++i)
-		{
-			dictionary.put(englishTerms[i],  germanTerms[i]);
-		}
-		String[] frenchTerms = {
-			"cuillière", "assiette", "fourchette", "couteau", "verre", "pot", "nappe", "serviette"
-		};
-		Dictionary germanFrench = new Dictionary();
-		for (int i = 0; i < germanTerms.length; ++i)
-		{
-			germanFrench.put(germanTerms[i],  frenchTerms[i]);
-		}
-		Dictionary englishFrench = new Dictionary();
-		for (int i = 0; i < englishTerms.length; ++i)
-		{
-			englishFrench.put(englishTerms[i],  frenchTerms[i]);
-		}
-		// act
-		AssociativeArray<String, String> result = dictionary.map((String eWord, String gWord) -> 
-			germanFrench.get(gWord)
-		);
-		// assert
-		assertTrue(englishFrench.equals(result));
-	}
 }

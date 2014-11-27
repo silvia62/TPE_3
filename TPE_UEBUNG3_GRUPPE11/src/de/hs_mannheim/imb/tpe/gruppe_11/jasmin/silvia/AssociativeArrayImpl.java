@@ -19,7 +19,8 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.hs_mannheim.imb.tpe.gruppe_11.jasmin.silvia.AssociativeArray#isEmpty()
+	 * @see
+	 * de.hs_mannheim.imb.tpe.gruppe_11.jasmin.silvia.AssociativeArray#isEmpty()
 	 */
 	@Override
 	public boolean isEmpty() {
@@ -53,15 +54,17 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 		if (containsValue(node.leftChild, value)) { // sucht im linken zweig
 			return true; // gefunden im linken zweig
 		}
-		return containsValue(node.rightChild, value); // sucht im rechten zweig 
-														// - gibt irgendwas zurueck
+		return containsValue(node.rightChild, value); // sucht im rechten zweig
+														// - gibt irgendwas
+														// zurueck
 														// ergebnis
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.hs_mannheim.imb.tpe.gruppe_11.jasmin.silvia.AssociativeArray#clear()
+	 * @see
+	 * de.hs_mannheim.imb.tpe.gruppe_11.jasmin.silvia.AssociativeArray#clear()
 	 */
 	@Override
 	public void clear() {
@@ -74,7 +77,8 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.hs_mannheim.imb.tpe.gruppe_11.jasmin.silvia.AssociativeArray#put(int,
+	 * @see
+	 * de.hs_mannheim.imb.tpe.gruppe_11.jasmin.silvia.AssociativeArray#put(int,
 	 * java.lang.String)
 	 */
 	@Override
@@ -95,7 +99,8 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.hs_mannheim.imb.tpe.gruppe_11.jasmin.silvia.AssociativeArray#get(int)
+	 * @see
+	 * de.hs_mannheim.imb.tpe.gruppe_11.jasmin.silvia.AssociativeArray#get(int)
 	 */
 	@Override
 	public U get(T key) {
@@ -114,7 +119,8 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.hs_mannheim.imb.tpe.gruppe_11.jasmin.silvia.AssociativeArray#size()
+	 * @see
+	 * de.hs_mannheim.imb.tpe.gruppe_11.jasmin.silvia.AssociativeArray#size()
 	 */
 	@Override
 	public int size() {
@@ -213,7 +219,7 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 				return;
 			}
 			collectFrom(node.leftChild); // sammelt vom linken zweig
-			keys[index++] = node.key; 
+			keys[index++] = node.key;
 			collectFrom(node.rightChild); // sammelt vom rechten zweig
 		}
 
@@ -278,11 +284,10 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 		// damit es nicht erkannt wird falls
 		// die Typ-parameter die selben wie T und U sind,
 		// beziehungsweise ("type erasure").
-		// Wenn die Implementierung von equals jeglicher Art beteiligt ist, 
-		// wird nicht false zurueck gegeben. 
-		// wenn das andere Objekt einen anderen Typ hat dann ist die 
+		// Wenn die Implementierung von equals jeglicher Art beteiligt ist,
+		// wird nicht false zurueck gegeben.
+		// wenn das andere Objekt einen anderen Typ hat dann ist die
 		// Implementierung von equals logisch nicht korrekt.
-		
 		AssociativeArrayImpl<T, U> aa = (AssociativeArrayImpl<T, U>) object;
 		if (size() != aa.size()) {
 			return false;
@@ -294,8 +299,8 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 	}
 
 	/**
-	 * Hilfsmethode durchquert die Baumkontrollen um zu sehen ob jedes Schluesselwertpaar
-	 * auch in einem anderen Array existiert
+	 * Hilfsmethode durchquert die Baumkontrollen um zu sehen ob jedes
+	 * Schluesselwertpaar auch in einem anderen Array existiert
 	 * 
 	 * @param node
 	 * @param otherRoot
@@ -316,7 +321,7 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 	@Override
 	public int hashCode() {
 		return hash;
-		//Berechnet den Hashcode dynamisch bei jedem Aufruf
+		// Berechnet den Hashcode dynamisch bei jedem Aufruf
 		// ist sehr ineffizient. stattdessen wird adjustState() verwendet
 		// macht den Code an ein paar Stellen leicht komplexer
 		// (put() und remove()), fuehrt zu einem kuerzeren Code.
@@ -325,14 +330,19 @@ public class AssociativeArrayImpl<T, U> implements AssociativeArray<T, U> {
 	}
 
 	/**
-	 * Hilfsmethode: Hashcodes des linken Baumes, Schluessels und 
-	 * rechten Baumes werden einfach XORed
+	 * Hilfsmethode: Hashcodes des linken Baumes, Schluessels und rechten Baumes
+	 * werden einfach XORed
 	 * 
 	 * @param node
 	 * @return 0 falls node null ist, ansonsten ist es ein hashcode
 	 */
 	int hashCode(Node<T, U> node) {
 		return (node == null) ? 0 : node.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return String.format("{%s}", ((root == null) ? "" : root.toString()));
 	}
 
 }
